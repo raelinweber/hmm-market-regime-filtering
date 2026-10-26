@@ -1,0 +1,1 @@
+Copy methodology_aligned_predictions_strict.csv from the final_report_outputs folder on the project computer into this directory before publishing a full reproducible archive.

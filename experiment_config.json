@@ -1,0 +1,133 @@
+{
+  "Project": "Gaussian HMM Market Regime Filtering | Deliverable 4 FINAL",
+  "Dataset": "S&P 500 index daily ^GSPC OHLCV, 2000-01-03 through 2024-12-30",
+  "Pilot_Period_Excluded_From_Final_HMM_Training_Test_Rows": "2000-01-03 through 2005-12-30",
+  "Research_Question": "Does Gaussian HMM regime filtering improve risk-adjusted performance of the original 20/50 SMA and 20-day breakout strategies?",
+  "Model": "GaussianHMM",
+  "Covariance_Type": "diag",
+  "Training_Window_Observations": 31,
+  "Warmup_Configuration_Original": 90,
+  "Warmup_Qualification": "Strict post-pilot HMM starts after the first 31 observations of 2006, not after a new 90-observation 2006 warm-up; earlier raw prices may enter rolling feature histories.",
+  "Candidate_Features": [
+    "Volatility",
+    "SMA_50",
+    "SMA_Ratio",
+    "RSI_14",
+    "ROC_14"
+  ],
+  "Feature_Priority": [
+    "Volatility",
+    "SMA_Ratio",
+    "RSI_14",
+    "SMA_50",
+    "ROC_14"
+  ],
+  "Training_Only_Feature_Correlation_Threshold": 0.8,
+  "Feature_Count_Range_Observed": [
+    1,
+    5
+  ],
+  "State_Candidates": [
+    2,
+    3,
+    4
+  ],
+  "State_Selected_Frequency": {
+    "2": 295,
+    "3": 2348,
+    "4": 2106
+  },
+  "Feature_Count_Frequency": {
+    "1": 36,
+    "2": 752,
+    "3": 2007,
+    "4": 1585,
+    "5": 369
+  },
+  "Random_Initialisations_Per_State_Candidate": 20,
+  "Random_Seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "EM_Maximum_Iterations": 1000,
+  "Tolerance": 0.001,
+  "Minimum_Covariance": 0.001,
+  "Model_Selection": "BIC (AIC recorded)",
+  "Numerical_Transition_Prior_Fallback": {
+    "default": 1.0,
+    "fallback": 1.01,
+    "trigger": "All default initializations for a candidate state count fail"
+  },
+  "Favourable_Regime_Rule": "Training-only positive mean gross open-to-open return on eligible long signals, no minimum sample-size constraint",
+  "Decision_Timing": "Current-day close for regime and strategy signal",
+  "Execution_Timing": "Next trading-day open",
+  "Holding_Return_Timing": "Execution open(t+1) to following open(t+2)",
+  "Transaction_Cost_Per_Position_Change": 0.0005,
+  "Slippage_Per_Position_Change": 0.0002,
+  "Total_Cost_Per_Position_Change": 0.0007,
+  "Final_Prediction_Checkpoint": "final_report_outputs/methodology_aligned_predictions_strict.csv",
+  "Checkpoint_Every_N_Predictions": 25,
+  "Batch_Size": 500,
+  "Final_Prediction_Count": 4749,
+  "First_Prediction_Date": "2006-02-16",
+  "Last_Prediction_Date": "2024-12-30",
+  "Final_Backtest_Observation_Count": 4747,
+  "First_Execution_Date": "2006-02-17",
+  "Last_Execution_Date": "2024-12-27",
+  "Net_Cumulative_Return_Percent": {
+    "SMA_Unfiltered": 128.992,
+    "SMA_Filtered": 21.577,
+    "Breakout_Unfiltered": 98.954,
+    "Breakout_Filtered": 40.293
+  },
+  "Annualised_Sharpe": {
+    "SMA_Unfiltered": 0.445554,
+    "SMA_Filtered": 0.166062,
+    "Breakout_Unfiltered": 0.396242,
+    "Breakout_Filtered": 0.261315
+  },
+  "DSR": "Not reported: no defensible effective independent number of strategy performance-selection trials",
+  "PSR_Benchmark": "Zero daily Sharpe; skewness/kurtosis approximation, no serial dependence adjustment",
+  "Dataset_Calendar_Check": "6,288 expected NYSE sessions, 0 missing and 0 unexpected; 233 legitimate weekday closures",
+  "Secondary_Price_Archive_Check": "6,288 OHLC date matches to 2 decimals; third-party archive attributed to Stooq, not directly vendor authenticated",
+  "Outlier_Review": "116 flagged |z|>3 using preceding 31 returns, all corroborated to 2 decimal OHLC and assigned historical event review; 0 clipped",
+  "Python_Version_Recorded": "3.14.6",
+  "Package_Versions_Recorded": {
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scikit-learn": "1.9.1",
+    "hmmlearn": "0.3.3",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  },
+  "Validation": "PASS (4,749 predictions / 4,747 holding returns), cost and signal reconciliation",
+  "Research_Limitations": [
+    "31 training rows for several HMM parameters",
+    "Some single-feature windows",
+    "Varying feature space/state labels",
+    "Posterior certainty is not classification accuracy",
+    "30 vs 31 row ambiguity and 90-row warm-up qualification",
+    "DSR unavailable",
+    "S&P 500 index not directly tradable",
+    "Trading frictions only approximate liquidity and costs"
+  ],
+  "Previous_Exploratory_Config": "hmm_experiment_config.json is a separate 6,118-prediction initial experiment, NOT final"
+}

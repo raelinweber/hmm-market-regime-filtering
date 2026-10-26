@@ -1,0 +1,5 @@
+Strategy,Cumulative_Return_%,Sharpe_Ratio,Max_Drawdown_%,Completed_Trades,Win_Rate_%,Position_Changes,Time_In_Market_%
+SMA_Unfiltered,128.992,0.446,-29.432,49,55.102,99,68.022
+SMA_Filtered,21.577,0.166,-18.95,295,49.153,591,45.924
+Breakout_Unfiltered,98.954,0.396,-40.99,72,48.611,144,64.399
+Breakout_Filtered,40.293,0.261,-29.462,289,51.557,578,46.324
